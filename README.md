@@ -9,7 +9,20 @@
 ## Screenshot
 
 <!-- SCREENSHOTS:START -->
-ยังไม่มี screenshot หน้าเว็บจริงใน checkout นี้ การเปิด Chrome ในสภาพแวดล้อมที่สร้างงานถูกจำกัดสิทธิ์ Workflow เตรียมจับภาพ desktop, selected component และ mobile จาก production build แล้วเพิ่มลงในส่วนนี้อัตโนมัติเมื่อการทดสอบเบราว์เซอร์ผ่าน
+ภาพจาก Chrome ที่เปิด production build จริง สร้างโดย GitHub Actions หลัง browser acceptance tests ผ่าน
+
+![Power Connex 3D Explorer บนเดสก์ท็อป](docs/screenshots/desktop.png)
+
+![สถานะประกอบสมบูรณ์ 0%](docs/screenshots/assembled.png)
+
+<details>
+<summary>ดูภาพเมื่อเลือกชิ้นส่วนและหน้าจอมือถือ</summary>
+
+![เลือกและโฟกัสชิ้นส่วนของรางไฟ](docs/screenshots/selected-part.png)
+
+<img src="docs/screenshots/mobile.png" width="390" alt="Power Connex 3D Explorer บนมือถือ" />
+
+</details>
 <!-- SCREENSHOTS:END -->
 
 ## ตัวอย่างโมเดลประกอบหลังแก้ตำแหน่ง
