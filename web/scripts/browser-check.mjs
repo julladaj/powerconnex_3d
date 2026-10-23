@@ -7,10 +7,14 @@ import assert from 'node:assert/strict';
 const root = fileURLToPath(new URL('../dist/', import.meta.url));
 const artifacts = fileURLToPath(new URL('../artifacts/', import.meta.url));
 const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.glb': 'model/gltf-binary', '.json': 'application/json' };
-let browser;
+let browser, page;
+const settle = async () => {
+  await page.waitForFunction(() => window.__explorer.getState().animating, { timeout: 5000 }).catch(() => {});
+  await page.waitForFunction(() => !window.__explorer.getState().animating, { timeout: 20000 });
+};
 try {
   browser = await puppeteer.launch({ executablePath: process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true, pipe: true, timeout: 20000, args: ['--no-sandbox', '--disable-setuid-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
-  const page = await browser.newPage();
+  page = await browser.newPage();
   await page.setViewport({ width: 1440, height: 1000, deviceScaleFactor: 1 });
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -58,7 +62,7 @@ try {
   assert.equal(await page.evaluate(() => window.__explorer.getState().visible), 56);
   await page.click('#show-all-button');
   await page.click('#reset-button');
-  await page.waitForTimeout(900);
+  await settle();
 
   const point = await page.evaluate(() => window.__explorer.project('Outlet_01_Faceplate', [0, .0016, 0]));
   await page.mouse.click(point.x, point.y);
@@ -68,7 +72,7 @@ try {
   await page.mouse.click(logoPoint.x, logoPoint.y);
   assert.equal(await page.evaluate(() => window.__explorer.getState().selected), 'Outlet_01_Faceplate');
   await page.click('#focus-button');
-  await page.waitForTimeout(800);
+  await settle();
   await page.screenshot({ path: path.join(artifacts, 'selected-part.png') });
   await page.keyboard.press('Escape');
   assert.equal(await page.evaluate(() => window.__explorer.getState().selected), null);
@@ -87,7 +91,7 @@ try {
   await page.keyboard.press('Escape');
   await page.click('#reset-button');
   await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 1 });
-  await page.waitForTimeout(800);
+  await settle();
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   await page.screenshot({ path: path.join(artifacts, 'mobile.png'), fullPage: true });
   await page.click('#mobile-panel-button');
