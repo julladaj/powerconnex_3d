@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "assembly_version": 2,
+  "mesh_objects": 77,
+  "interactive_parts": 57,
+  "triangles": 44418,
+  "glb_bytes": 1754572,
+  "materials": 10,
+  "unique_exported_meshes": 33,
+  "embedded_images": 1,
+  "checks": [
+    "GLB container and scene structure",
+    "All individually named mesh nodes retained",
+    "No studio cameras, lights or ground exported",
+    "All textures embedded",
+    "Pose metadata and attachment ownership retained",
+    "Triangle and size budgets",
+    "GLB reimport: mesh count, dimensions, world positions, materials",
+    "Origin rebasing preserves target geometry and selected bystander with shared mesh data"
+  ]
+}
